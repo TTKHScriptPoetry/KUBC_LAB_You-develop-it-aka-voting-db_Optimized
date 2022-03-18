@@ -1,0 +1,24 @@
+{
+  "name": "kubc_lab_you-develop-it Optimized with Modularized Routes",
+  "version": "1.0.0",
+  "description": "online voting with mysql as backend db",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "mysql",
+    "node.js",
+    "inquire"
+  ],
+  "author": "student lab",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^27.5.1"
+  },
+  "dependencies": {
+    "express": "^4.17.3",
+    "mysql2": "^2.3.3"
+  }
+}
