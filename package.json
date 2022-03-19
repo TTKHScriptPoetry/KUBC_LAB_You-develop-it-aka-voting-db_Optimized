@@ -1,5 +1,5 @@
 {
-  "name": "kubc_lab_you-develop-it Optimized with Modularized Routes",
+  "name": "kubc_lab_you-develop-it-optimized",
   "version": "1.0.0",
   "description": "online voting with mysql as backend db",
   "main": "server.js",
