@@ -1,10 +1,10 @@
 const express = require('express');
-const router = express.Router();
+const routerVoter = express.Router();
 
 const db = require('../../db/connection');
 const inputCheck = require('../../utils/inputCheck');
 
-router.get('/voters', (req, res) => {
+routerVoter.get('/voters', (req, res) => {
   const sqlSelectAll = `SELECT * FROM voters ORDER BY id`;
 
   db.query(sqlSelectAll, (err, rows) => {
@@ -20,7 +20,7 @@ router.get('/voters', (req, res) => {
 });
 
 // Get single voter
-router.get('/voter/:id', (req, res) => {
+routerVoter.get('/voter/:id', (req, res) => {
   const sqlUnique = `SELECT * FROM voters WHERE id = ?`;
   const params = [req.params.id];
 
@@ -37,7 +37,7 @@ router.get('/voter/:id', (req, res) => {
 });
 
 
-router.get('/voters/lastcreated', (req, res) => {
+routerVoter.get('/voters/lastcreated', (req, res) => {
   const sqlSelect1LastCreated = `SELECT * FROM voters ORDER BY created_at DESC LIMIT 1`;
 
   db.query(sqlSelect1LastCreated, (err, rows) => {
@@ -53,7 +53,7 @@ router.get('/voters/lastcreated', (req, res) => {
 });
 
 // Create voter
-router.post('/voter', ({ body }, res) => {
+routerVoter.post('/voter', ({ body }, res) => {
   // Data validation
   const errors = inputCheck(body, 'first_name', 'last_name', 'email'); // pass in 3 fields
   if (errors) {
@@ -76,7 +76,7 @@ router.post('/voter', ({ body }, res) => {
 });
 
 // Update voter email
-router.put('/voter/:id', (req, res) => {
+routerVoter.put('/voter/:id', (req, res) => {
   // Data validation
   const errors = inputCheck(req.body, 'email'); // passed in 1 field only
   if (errors) {
@@ -105,7 +105,7 @@ router.put('/voter/:id', (req, res) => {
 });
 
 // Delete a voter record
-router.delete('/voter/:id', (req, res) => {
+routerVoter.delete('/voter/:id', (req, res) => {
   const sqlDelete = `DELETE FROM voters WHERE id = ?`;
 
   db.query(sqlDelete, req.params.id, (err, result) => {
@@ -125,4 +125,4 @@ router.delete('/voter/:id', (req, res) => {
   });
 });
 
- module.exports = router;
+module.exports = routerVoter;

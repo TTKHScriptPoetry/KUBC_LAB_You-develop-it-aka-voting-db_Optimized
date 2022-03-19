@@ -1,12 +1,12 @@
 const express = require('express');
-const router = express.Router();
+const routerCandidate = express.Router();
 
 const db = require('../../db/connection');
 const inputCheck = require('../../utils/inputCheck');
 
 // The affected row's id should always be part of the route (e.g., /api/candidate/2) 
 // while the actual fields we're updating should be part of the body.
-router.put('/candidate/:id', (req, res) => {
+routerCandidate.put('/candidate/:id', (req, res) => {
    // validate input first
    const errors = inputCheck(req.body, 'party_id');
    if (errors) {
@@ -38,7 +38,7 @@ router.put('/candidate/:id', (req, res) => {
 });
 
 // Get all candidates
-router.get('/candidates', (req, res) => {
+routerCandidate.get('/candidates', (req, res) => {
    // const sqlSelectAll = `SELECT * FROM candidates`;
    const sqlSelectAll = `SELECT candidates.*, parties.name 
                         AS party_name 
@@ -58,7 +58,7 @@ router.get('/candidates', (req, res) => {
 });
 
 // Get a single candidate
-router.get('/candidate/:id', (req, res) => {
+routerCandidate.get('/candidate/:id', (req, res) => {
    const sqlSelectOne = `SELECT candidates.*, parties.name 
                         AS party_name 
                         FROM candidates 
@@ -81,7 +81,7 @@ router.get('/candidate/:id', (req, res) => {
 });
 
 // Delete a candidate
-router.delete('/candidate/:id', (req, res) => {
+routerCandidate.delete('/candidate/:id', (req, res) => {
    const sqlDelete =  `DELETE FROM candidates WHERE id = ?`;
    const params = [req.params.id];
 
@@ -109,7 +109,7 @@ router.delete('/candidate/:id', (req, res) => {
 });
 
 // using object destructuring to pull the body property out of the request object
-router.post('/candidate', ({ body }, res) => {   
+routerCandidate.post('/candidate', ({ body }, res) => {   
    const errors = inputCheck(body, 'first_name', 'last_name', 'industry_connected');
    if (errors) {
       res.status(400).json({ error: errors.message });
@@ -132,4 +132,4 @@ router.post('/candidate', ({ body }, res) => {
 
 });
 
-module.exports = router; // = candidateRouter ??
+module.exports = routerCandidate; // = candidateRouter ??

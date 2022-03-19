@@ -1,10 +1,10 @@
 const express = require('express');
-const router = express.Router();
+const routerParty = express.Router();
 
 const db = require('../../db/connection');
 const inputCheck = require('../../utils/inputCheck');
 
-router.get('/parties', (req, res) => {
+routerParty.get('/parties', (req, res) => {
    const sqlSelectAll = `SELECT * FROM parties`;
       db.query(sqlSelectAll, (err, rows) => {
          if (err) {
@@ -19,7 +19,7 @@ router.get('/parties', (req, res) => {
 }); 
 
    
-router.get('/party/:id', (req, res) => {
+routerParty.get('/party/:id', (req, res) => {
    const sqlSelectById =  `SELECT * FROM parties WHERE id = ?`;
    const params = [req.params.id];
    db.query(sqlSelectById, params, (err, rows) => {
@@ -34,7 +34,7 @@ router.get('/party/:id', (req, res) => {
    });
 });
    
-router.delete('/party/:id', (req, res) => {
+routerParty.delete('/party/:id', (req, res) => {
    const sqlDelete = `DELETE FROM parties WHERE id = ?`;
    const params = [req.params.id];
    db.query(sqlDelete, params, (err, result) => {
@@ -55,4 +55,4 @@ router.delete('/party/:id', (req, res) => {
    });
 });
    
-module.exports = router;
+module.exports = routerParty;

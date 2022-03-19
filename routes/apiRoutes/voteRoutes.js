@@ -1,9 +1,9 @@
 const express = require('express');
-const router = express.Router();
+const routerVote = express.Router();
 const db = require('../../db/connection');
 const inputCheck = require('../../utils/inputCheck');
 
-router.get('/votespercandidate', (req, res) => {
+routerVote.get('/votespercandidate', (req, res) => {
    const sqlvotecountpercandidate = `SELECT candidates.*, parties.name AS party_name, COUNT(candidate_id) AS count
          FROM votes
          LEFT JOIN candidates ON votes.candidate_id = candidates.id
@@ -22,7 +22,7 @@ router.get('/votespercandidate', (req, res) => {
    });
  });
 
-router.get('/votes', (req, res) => {
+routerVote.get('/votes', (req, res) => {
    const sqlSelectAll = `SELECT * FROM votes`;
  
    db.query(sqlSelectAll, (err, rows) => {
@@ -37,7 +37,7 @@ router.get('/votes', (req, res) => {
    });
  });
 
-router.post('/vote', ({ body }, res) => {
+routerVote.post('/vote', ({ body }, res) => {
    // Data validation
    const errors = inputCheck(body, 'voter_id', 'candidate_id');
    if (errors) {
@@ -61,4 +61,4 @@ router.post('/vote', ({ body }, res) => {
    });
  });
 
- module.exports = router;
+ module.exports = routerVote;
